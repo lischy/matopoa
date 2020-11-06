@@ -44,6 +44,26 @@ if(isset($_SESSION['json'])){
       //redirect to payment.
       header("Location:./payment.php");
 
+    }else{
+      //destroy the whole session and completely destroy the session.
+      if(isset($_SESSION['json'])){
+        $_SESSION = array();
+// If it's desired to kill the session, also 
+// delete the session cookie. 
+// Note: This will destroy the session, and 
+// not just the session data! 
+if (ini_get("session.use_cookies")) { 
+  $params = session_get_cookie_params(); 
+  setcookie(session_name(), '', time() - 42000, 
+      $params["path"], $params["domain"], 
+      $params["secure"], $params["httponly"] 
+  ); 
+} 
+
+// Finally, destroy the session. 
+session_destroy();
+      }
+
     }
     ?>
     <head>
@@ -203,8 +223,8 @@ input[type=number]::-webkit-outer-spin-button{
       </form>
     </div>
     <div class="modal-footer" style="text-align:center">
-      <button type="button" id="btn" class="btn btn-default" id="bookticket" style="width:100%" background-color: #5cb85c;>
-        <h6>Continue as guest.</h6>
+      <button type="button" id="btn" class="btn btn-default" id="bookticket"  background-color: #5cb85c;>
+      <a href="" class="button sign_up">Continue as guest.</a>
       </button>
 
     </div>

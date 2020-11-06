@@ -188,7 +188,7 @@ if (!isset($_SESSION)) {
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="book-a-car">
-                            <form method="post" action="search.php">
+                            <form method="post" action="search.php" id="myForm">
                                 <!--== Select route ==-->
                                 <div class="pickup-location book-item" >
                                     <h4>SELECT TRAVEL ROUTE:</h4>
@@ -217,7 +217,7 @@ if (!isset($_SESSION)) {
 
                                 <div class="book-button text-center">
                                     
-                                    <input name="search" onMouseOver="this.style.color='gray'" onMouseOut="this.style.color='#fff'" style="float: right; color: #fff; background: #5cb85c; border: 1px solid transparent; display: inline-block; outline: none; line-height: 40px;padding: 0 30px; font-size: .8em; text-align: center; text-decoration: none; font-weight: 500; cursor: pointer; -webkit-transition: all 0.3s ease 0s; -moz-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; font-size: 15px; border-radius: 40px" type="submit">
+                                    <input name="search" id="search" onMouseOver="this.style.color='gray'" onMouseOut="this.style.color='#fff'" style="float: right; color: #fff; background: #5cb85c; border: 1px solid transparent; display: inline-block; outline: none; line-height: 40px;padding: 0 30px; font-size: .8em; text-align: center; text-decoration: none; font-weight: 500; cursor: pointer; -webkit-transition: all 0.3s ease 0s; -moz-transition: all 0.3s ease 0s; -o-transition: all 0.3s ease 0s; transition: all 0.3s ease 0s; font-size: 15px; border-radius: 40px" type="submit">
                                 </div>
                             </form>
                         </div>
@@ -263,10 +263,10 @@ if (!isset($_SESSION)) {
             </div>
 				</div>
       </div>
-    <!-- The Modal -->
+    <!-- The Modal 
         <div id="myModal" class="modal">
 
-        <!-- Modal content -->
+         Modal content 
         <div class="modal-content">
           <div class="modal-header">
             <span class="close">&times;</span>
@@ -300,8 +300,7 @@ if (!isset($_SESSION)) {
         </div>
 
 	  </section>
-	  <!-- - - - - -end- - - - -  -->
-    <br><br> <br>
+	  - - - - -end- - - - -  -->
 		
 
 	  <footer class="ftco-section ftco-section-2" style="padding: 40px; background-color: black;">
@@ -339,83 +338,83 @@ if (!isset($_SESSION)) {
     <script>
 
   
-      var modal = document.getElementById("myModal");
+//       var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("tablebody");
+// // Get the button that opens the modal
+// var btn = document.getElementById("search");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+// // Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  $routeID= '<?php echo $_SESSION['routeid']; ?>';
-  $date_time= '<?php echo $_SESSION['date_time']; ?>';
-  $.ajax({
-    url:"Bookings.php",  
-    method:"POST",  
-    data:{
-            id:$routeID,
-            time:$date_time
-          },  
-          success:function(res){  
-               $parsed=JSON.parse(res);
-               //$('#modal-body').html($parsed.registration_no); 
-               $('#noPlate').val($parsed.registration_no); 
-               $('#seats').val($parsed.seatsAvailable); 
-               $('#seatsavailable').val($parsed.seatsAvailable); 
-               console.log(jQuery.type($parsed));
+// // When the user clicks on the button, open the modal
+// btn.onclick = function() {
+//   $routeID= '<?php echo $_SESSION['routeid']; ?>';
+//   $date_time= '<?php echo $_SESSION['date_time']; ?>';
+//   $.ajax({
+//     url:"Bookings.php",  
+//     method:"POST",  
+//     data:{
+//             id:$routeID,
+//             time:$date_time
+//           },  
+//           success:function(res){  
+//                $parsed=JSON.parse(res);
+//                //$('#modal-body').html($parsed.registration_no); 
+//                $('#noPlate').val($parsed.registration_no); 
+//                $('#seats').val($parsed.seatsAvailable); 
+//                $('#seatsavailable').val($parsed.seatsAvailable); 
+//                console.log(jQuery.type($parsed));
 
-               modal.style.display = "block";
-                }  
-  });
-}
+//                modal.style.display = "block";
+//                 }  
+//   });
+// }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+// // When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//   modal.style.display = "none";
+// }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "block";
-  }
-}
-var bookbtn = document.getElementById("bookticket");
-//when the booking button is clicked do the neccessary functionalities ie, sanitize then update the db(no of seats available).
-bookbtn.onclick = function() {
-  $NoPlate= '<?php echo $_SESSION['registration_no']; ?>';
-  $seatsAvailable= $('#seatsavailable').val();
-  $payable= $('#totalcharges').val();
-  $date_time='<?php echo $_SESSION['date_time']; ?>';
-  $seatsselected=$('#seats').val();
-  console.log($seatsselected);
-  $.ajax({
-    url:"search.php",  
-    method:"POST",  
-    data:{
-            numberPlate:$NoPlate,
-            seatsBooking:$seatsAvailable,
-            bookingtime:$date_time,
-            seatsselected:$seatsselected,
-            payable:$payable,
-            view:"update"
-          },  
-          success:function(data){  
-              $('#modal-body').html(data);  
-              modal.style.display = "block";
-                }  
-  });
-}
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "block";
+//   }
+// }
+// var bookbtn = document.getElementById("bookticket");
+// //when the booking button is clicked do the neccessary functionalities ie, sanitize then update the db(no of seats available).
+// bookbtn.onclick = function() {
+//   $NoPlate= '<?php echo $_SESSION['registration_no']; ?>';
+//   $seatsAvailable= $('#seatsavailable').val();
+//   $payable= $('#totalcharges').val();
+//   $date_time='<?php echo $_SESSION['date_time']; ?>';
+//   $seatsselected=$('#seats').val();
+//   console.log($seatsselected);
+//   $.ajax({
+//     url:"search.php",  
+//     method:"POST",  
+//     data:{
+//             numberPlate:$NoPlate,
+//             seatsBooking:$seatsAvailable,
+//             bookingtime:$date_time,
+//             seatsselected:$seatsselected,
+//             payable:$payable,
+//             view:"update"
+//           },  
+//           success:function(data){  
+//               $('#modal-body').html(data);  
+//               modal.style.display = "block";
+//                 }  
+//   });
+// }
 
-$( ".target" ).on('input',function() {
-        $seats = $('.target').val();
-        var costPerSeat = 50;
-        $total = $seats * parseInt(costPerSeat);
-        $('#totalcharges').val($total) 
+// $( ".target" ).on('input',function() {
+//         $seats = $('.target').val();
+//         var costPerSeat = 50;
+//         $total = $seats * parseInt(costPerSeat);
+//         $('#totalcharges').val($total) 
 
-});
+// });
     </script>
   </body>
 </html>

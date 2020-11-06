@@ -1,6 +1,9 @@
 
 
 <?php
+if (!isset($_SESSION)) {
+	session_start();
+}
 include "config.php";
 
 $fname = ucwords(mysqli_real_escape_string($conn, $_POST['fname']));
@@ -40,6 +43,10 @@ $sql = "INSERT INTO commuter(`CellNumber`, `FirstName`, `LastName`, `UserName`, 
 
 if ($conn->query($sql) === TRUE) {
   echo "User created";
+  if(isset($_SESSION['json'])){
+     //redirect to payment.
+	 header("Location:../../Bookings.php");
+  }
 } else {
   echo "could not create user";
 }
