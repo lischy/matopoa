@@ -41,64 +41,65 @@ $result = $conn->query($sql);
     }
 </style>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Number Plate</th>
-            <th scope="col">Route</th>
-            <th scope="col">Seats Available</th>
-            <th scope="col">Fare</th>
-            <th scope="col">Time</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
+
 
 <?php
 
 if ($result->num_rows > 0) {
     // output data of each row
-       
+    echo'<table class="table">';
+    echo'<thead>';
+        echo'<tr>';
+            echo'<th scope="col">Number Plate</th>';
+            echo'<th scope="col">Route</th>';
+            echo'<th scope="col">Seats Available</th>';
+            echo'<th scope="col">Fare</th>';
+            echo'<th scope="col">Time</th>';
+            echo'<th scope="col">Action</th>';
+        echo'</tr>';
+    echo'</thead>';
      
                                            while($row = $result->fetch_assoc()) 
                                            {
                                             $time = $row["date_time"];
-                                            ?>
-                                     
-    <tbody>
-        <tr>
-        <form action="Bookings.php" method="post">
-            <td ><input type="text" name="numberPlate" value="<?=$row["registration_no"] ?>" readonly></td>
-            <td ><input type="text" name="route" value="<?=$row["routeid"] ?>" readonly></td>
-            <td ><input type="text" name="seatsAvailable" value="<?=$row["seatsAvailable"]?>" readonly></td>
-            <td ><input type="text" name="fare" value="<?=$row["fare"]?>" readonly></td>
-            <td ><input type="text" name="time" value="<?php echo $time = date("H:i:s",strtotime($time));?>" readonly></td>
-            <input type="hidden" name="dateTime" value="<?=$row["date_time"]?>">
-            <td><input type="submit" value="Book" name="bookseat"></td>
-        </form>
-        </tr>
-    </tbody>
+                                            
+                                     echo'<form action="Bookings.php" method="post">';
+        
+    echo'<tbody>';
+        echo'<tr>';
+            echo'<td ><input type="text" name="numberPlate" value="'.$row['registration_no'].'" readonly></td>';
+            echo'<td ><input type="text" name="route" value="'.$row["routeid"].'" readonly></td>';
+            echo'<td ><input type="text" name="seatsAvailable" value="'.$row["seatsAvailable"].'" readonly></td>';
+            echo'<td ><input type="text" name="fare" value="'.$row["fare"].'" readonly></td>';
+            echo'<td ><input type="text" name="time" value="'.$time = date("H:i:s",strtotime($time)).'" readonly></td>';
+            echo'<input type="hidden" name="dateTime" value="'.$row["date_time"].'">';
+            echo'<td><input type="submit" value="Book" name="bookseat"></td>';
+        echo'</form>';
+        echo'</tr>';
+    echo'</tbody>';
   
 
                                             
-                                            <?php
-                                           };?>
-  <tfoot>
-        <tr>
-            <th scope="col">Number Plate</th>
-            <th scope="col">Route</th>
-            <th scope="col">Seats Available</th>
-            <th scope="col">Fare</th>
-            <th scope="col">Time</th>
-            <th scope="col">Action</th>
-        </tr>
-    </tfoot>
-</table>
+                                            
+                                           };
+  echo'<tfoot>';
+        echo'<tr>';
+            echo'<th scope="col">Number Plate</th>';
+            echo'<th scope="col">Route</th>';
+            echo'<th scope="col">Seats Available</th>';
+            echo'<th scope="col">Fare</th>';
+            echo'<th scope="col">Time</th>';
+            echo'<th scope="col">Action</th>';
+        echo'</tr>';
+    echo'</tfoot>';
+echo'</table>';
 
                                            
 
-<?php    
+
 } else {
-    $output .= '<li><a href="#" class="text-bold text-italic"><h1>No Mattatu Scheduled</h1></a></li>';
+    echo '<li style="list-style:none;"><a href="#" class="text-bold text-italic"><h1>No Mattatu Scheduled</h1></a></li>';
+    echo'<a href="index.php">Home</a>';
 
 }
 

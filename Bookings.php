@@ -2,22 +2,22 @@
 if (!isset($_SESSION)) {
     session_start();
 if(isset($_SESSION['json'])){
-  echo $_SESSION['json'];
+  // echo $_SESSION['json'];
   $data= json_decode($_SESSION['json']);
-  echo "\n";
+  // echo "\n";
  
-  echo "\n";
-  echo $data->routeid;
-  echo "\n";
-  echo $data->registration_no;
-  echo "\n";
-  echo $data->date_time;
-  echo "\n";
-  echo $data->fare;
-  echo "\n";
-  echo $data->bookingstatus;
-  echo "\n";
-  echo $data->seatsAvailable;
+  // echo "\n";
+  // echo $data->routeid;
+  // echo "\n";
+  // echo $data->registration_no;
+  // echo "\n";
+  // echo $data->date_time;
+  // echo "\n";
+  // echo $data->fare;
+  // echo "\n";
+  // echo $data->bookingstatus;
+  // echo "\n";
+  // echo $data->seatsAvailable;
 }
     }
     include './database/config.php';
@@ -203,7 +203,7 @@ input[type=number]::-webkit-outer-spin-button{
       </form>
     </div>
     <div class="modal-footer" style="text-align:center">
-      <button type="button" class="btn btn-default" id="bookticket" style="width:100%" background-color: #5cb85c;>
+      <button type="button" id="btn" class="btn btn-default" id="bookticket" style="width:100%" background-color: #5cb85c;>
         <h6>Continue as guest.</h6>
       </button>
 
@@ -266,8 +266,12 @@ if(!isset($_SESSION['logged_in'])){
         <script>
             // Get the <span> element that closes the modal
             var span = document.getElementsByClassName("close")[0];
+            var btnguest = document.getElementById("btn");
             // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
+                modal.style.display = "none";
+                };
+                btnguest.onclick = function() {
                 modal.style.display = "none";
                 };
 
