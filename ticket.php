@@ -3,6 +3,9 @@
 // if(!isset($_SESSION['customer_id'])){
 //   header("Location: requestform.php");
 // }
+if (!isset($_SESSION)) {
+  session_start();
+  }
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -206,9 +209,12 @@ $conn->close();
 
 <?php
 include './database/config.php';
-$sql = "SELECT * FROM `ticket` WHERE T_id=1";
+$last_id = $_SESSION['last_id'];
+$sql = "SELECT * FROM `ticket` WHERE T_id= $last_id";
 $result = $conn->query($sql);
 $row=$result->fetch_assoc();
+
+
 ?>
               <form role="form" method="POST" action="payment.php">
                 <div class="form-group">
@@ -222,7 +228,7 @@ $row=$result->fetch_assoc();
                   <label for="PhoneNumber">
                    Vehicle Registration number</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="phone" readonly value="<?php echo $row['T_id']?>" placeholder="eg. 07*********" required autofocus name="phone" />
+                    <input type="text" class="form-control" id="phone" readonly value="<?php echo $row['reg_no']?>" placeholder="eg. 07*********" required autofocus name="phone" />
                 <div class="form-group">
                   <label for="PhoneNumber">
                    Travel Route</label>
@@ -234,7 +240,7 @@ $row=$result->fetch_assoc();
                   <label for="mpesacode">
                     Amount payable</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="code" readonly value="<?php echo $row['T_payable']?>" placeholder="eg. OBB0ZGHJN9" autofocus name="code" required />
+                    <input type="text" class="form-control" id="code" readonly value="<?php echo $row['T_payable'] * $row['T_seats'] ?>" placeholder="eg. OBB0ZGHJN9" autofocus name="code" required />
                   </div>
                 </div>
                 <div class="form-group">
@@ -248,11 +254,17 @@ $row=$result->fetch_assoc();
                   <label for="date">
                     DATE and Time</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="date"  readonly value="<?php echo $row['T_date']?>" placeholder="eg. 24/04/2020" required autofocus name="date" />
-                    <input type="text" class="form-control" id="date"  readonly value="<?php echo $row['T_id']?>" placeholder="eg. 24/04/2020" required autofocus name="date" />
+                  <?php 
+                  $rowtime = $row['T_date'];
+                  $date = date('Y-m-d',strtotime($rowtime));
+                  $time = date('H-i-s',strtotime($rowtime));
+                  ?>
+                  
+                    <input type="text" class="form-control" id="date"  readonly value="<?php echo $date?>" placeholder="eg. 24/04/2020" required autofocus name="date" />
+                    <input type="text" class="form-control" id="date"  readonly value="<?php echo $time?>" placeholder="eg. 24/04/2020" required autofocus name="date" />
                   </div>
                 </div>
-                <input type="submit" value="Print e-ticket" name="submit" class="btn btn-success btn-lg btn-block" role="button">
+                <input type="submit" value="Print e-ticket" name="submit" class="btn btn-success btn-lg btn-block" role="button" id="printTicket">
                 <h5 style="text-align: center;">Tickets once purchased cannot be refunded</h5>
               </form>
             </div>
@@ -276,6 +288,12 @@ $row=$result->fetch_assoc();
 
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("date").setAttribute("max", today);
+
+    var print_ticket = document.getElementById("printTicket");
+            // When the user clicks on <span> (x), close the modal
+                print_ticket.onclick = function() {
+                window.print();
+                };
   </script>
 </body>
 </html>
